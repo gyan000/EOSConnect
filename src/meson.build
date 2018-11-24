@@ -44,6 +44,7 @@ all_files = files(
     'EOSConnect/Widgets/DeviceMenuitem.vala',
     'EOSConnect/Widgets/PluginListBox.vala',
     'EOSConnect/Widgets/PluginListBoxRow.vala',
+    # 'EOSConnect/Wingpanel/Indicator.vala',
     # 'MConnect/Config.vala',
     'MConnect/BatteryHandler.vala',
     'MConnect/Core.vala',
@@ -81,4 +82,33 @@ executable(
     dependencies: dependencies,
     #vala_args: args,
     install: true
+)
+
+dep_wingpanel = dependency('wingpanel-2.0')
+
+# as_resources = gnome.compile_resources(
+#     'as-resources', 'data/io.elementary.wingpanel.nightlight.gresource.xml',
+#     source_dir: 'data',
+#     c_name: 'as'
+# )
+
+# pkg-config  wingpanel-2.0 --variable=indicatorsdir
+# ls -lh /usr/lib/x86_64-linux-gnu/wingpanel
+
+shared_module(
+    meson.project_name(),
+    'EOSConnect/Wingpanel/Indicator.vala',
+    # 'src/Services/ColorInterface.vala',
+    # 'src/Widgets/PopoverWidget.vala',
+    # 'src/Widgets/RevealerSwitch.vala',
+    # as_resources,
+    dependencies: [
+        dependency('glib-2.0'),
+        dependency('gobject-2.0'),
+        dependency('granite'),
+        dependency('gtk+-3.0'),
+        dep_wingpanel
+    ],
+    install: true,
+    install_dir : dep_wingpanel.get_pkgconfig_variable('indicatorsdir')
 )

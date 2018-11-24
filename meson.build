@@ -32,6 +32,7 @@ dep_posix = meson.get_compiler('vala').find_library('posix')
 dep_unity = dependency('unity', version: '>=4.0.0')
 dep_sqlite = dependency('sqlite3')
 
+
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'src/MConnect/vapi')], language: 'vala')
 
 dependencies = [
